@@ -30,12 +30,16 @@ var postCSSConfig = function(webpack) {
 
 module.exports = {
     entry: {
-        app: ['./src/js/app.js']
+        app: ['./src/js/app.ts']
     },
     output: {
         path: require('path').resolve('build'),
         publicPath: '/',
         filename: 'bundle.js'
+    },
+    resolve: {
+      // Add '.ts' and '.tsx' as a resolvable extension.
+      extensions: ["", ".webpack.js", ".web.js", ".ts", ".tsx", ".js"]
     },
     module: {
         loaders: [
@@ -47,7 +51,8 @@ module.exports = {
                 test: /\.js$/,
                 exclude: /node_modules/,
                 loader: 'babel-loader?presets[]=es2015'
-            }
+            },
+            { test: /\.tsx?$/, loader: "ts-loader" }
         ]
     },
     postcss: postCSSConfig,

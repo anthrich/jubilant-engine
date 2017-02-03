@@ -23,6 +23,8 @@
     "postcss-loader": "^0.8.2",
     "postcss-nested": "^1.0.0",
     "style-loader": "^0.13.1",
+    "ts-loader": "^2.0.0",
+    "typescript": "^2.1.5",
     "webpack": "^1.8.11",
     "webpack-dev-server": "^1.8.2",
     "wordwrap": "1.0.0"
