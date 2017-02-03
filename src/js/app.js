@@ -1,4 +1,4 @@
-require("../css/main.css");
+import "../css/main.css";
 
 class GameState {
   constructor(canvas) {
