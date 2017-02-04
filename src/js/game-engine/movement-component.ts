@@ -1,5 +1,6 @@
 import Component from './component';
 import Vector2 from './vector2';
+import GameObject from "./game-object";
 
 export default class MovementComponent extends Component {
 
@@ -10,13 +11,13 @@ export default class MovementComponent extends Component {
     this.targetPosition = new Vector2(0,0);
   }
 
-  registerGameObject(gameObject) {
+  registerGameObject(gameObject: GameObject) {
     super.registerGameObject(gameObject);
     this.targetPosition.x = gameObject.position.x;
     this.targetPosition.y = gameObject.position.y;
   }
 
-  update(delta) {
+  update(delta: number) {
     let distance = Vector2.distance(this.gameObject.position, this.targetPosition);
     let movementThisUpdate = this.gameObject.speed / 1000 * delta;
 

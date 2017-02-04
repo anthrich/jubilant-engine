@@ -12,7 +12,7 @@ export default class GameState {
     this.ctx = canvas.getContext('2d');
   }
 
-  update(delta) {
+  update(delta: number) {
     this.gameObjects.forEach((go) => {
       go.update(delta);
     });
