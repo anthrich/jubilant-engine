@@ -26,7 +26,7 @@ abstract class GameObject {
     });
   }
 
-  abstract draw(canvas: HTMLCanvasElement);
+  abstract draw();
 }
 
 export default GameObject;

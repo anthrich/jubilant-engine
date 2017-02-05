@@ -1,12 +1,13 @@
 import "../css/main.css";
+import MovementComponent from './game-engine/movement-component';
 import GameState from './game-engine/game-state';
 import Circle from './game-engine/circle';
-import MovementComponent from './game-engine/movement-component';
+import CanvasCircleRenderer from "./canvas-circle-renderer";
 
 (() => {
-  let canvas = <HTMLCanvasElement>document.getElementById('canvas');
+  let canvas = <HTMLCanvasElement>document.getElementById("canvas");
   let gameState = new GameState(canvas);
-  let circle = new Circle(20, 'blue');
+  let circle = new Circle(20, 'blue', new CanvasCircleRenderer(canvas));
   let playerMovementComponent = new MovementComponent();
   circle.addComponent(playerMovementComponent);
   gameState.gameObjects.push(circle);
