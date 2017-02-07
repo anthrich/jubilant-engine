@@ -1,9 +1,8 @@
-import Vector2 from "./vector2";
+import Drawable from "./drawable";
 
-interface CircleRenderer {
+interface CircleRenderer extends Drawable{
     setRadius (radius: number);
     setColor (color: string);
-    draw (position: Vector2);
 }
 
 export default CircleRenderer;

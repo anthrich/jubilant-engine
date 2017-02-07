@@ -30,7 +30,7 @@ var postCSSConfig = function(webpack) {
 
 module.exports = {
     entry: {
-        app: ['./src/js/app.ts']
+        app: ['./src/js/example/app.ts']
     },
     output: {
         path: require('path').resolve('build'),

@@ -1,15 +1,11 @@
 import GameObject from "./game-object";
-export default class GameState {
+abstract class GameState {
 
   gameObjects: Array<GameObject>;
-  canvas: HTMLCanvasElement;
-  ctx: CanvasRenderingContext2D;
+  onDrawStart: Function;
 
-  constructor(canvas: HTMLCanvasElement) {
-    if (!canvas) throw new TypeError("GameStates require a canvas");
+  constructor() {
     this.gameObjects = [];
-    this.canvas = canvas;
-    this.ctx = canvas.getContext('2d');
   }
 
   update(delta: number) {
@@ -19,9 +15,14 @@ export default class GameState {
   }
 
   draw() {
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.gameObjects.forEach((go) => {
       go.draw();
     });
   }
+
+  onMouseDown(x: number, y: number) {
+
+  }
 }
+
+export default GameState;
