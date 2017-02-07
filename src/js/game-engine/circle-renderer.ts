@@ -1,8 +1,8 @@
-import Drawable from "./drawable";
+import IDrawable from "./drawable";
 
-interface CircleRenderer extends Drawable{
+interface ICircleRenderer extends IDrawable{
     setRadius (radius: number);
     setColor (color: string);
 }
 
-export default CircleRenderer;
+export default ICircleRenderer;

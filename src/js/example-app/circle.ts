@@ -1,5 +1,5 @@
-import GameObject from './game-object';
-import CircleRenderer from "./circle-renderer";
+import GameObject from '../game-engine/game-object';
+import CircleRenderer from "../game-engine/circle-renderer";
 
 export default class Circle extends GameObject {
 

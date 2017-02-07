@@ -1,4 +1,5 @@
 import GameState from "../game-state";
+import CanvasDrawableFactory from "./canvas-drawable-factory";
 class CanvasGameStateIntegration {
 
   private canvas: HTMLCanvasElement;
@@ -14,6 +15,9 @@ class CanvasGameStateIntegration {
   }
 
   initialize() {
+    let drawableFactory = new CanvasDrawableFactory(this.canvas);
+    this.gameState.setDrawableFactory(drawableFactory);
+
     this.canvas.addEventListener('mousedown', (e) => {
       this.gameState.onMouseDown(e.clientX, e.clientY);
     });
@@ -29,6 +33,7 @@ class CanvasGameStateIntegration {
       this.gameState.update(20);
     };
 
+    this.gameState.onGameStateReady();
     drawLoop();
     setInterval(updateLoop, 20);
   }

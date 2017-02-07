@@ -1,7 +1,7 @@
 import Vector2 from "./vector2";
 
-interface Drawable {
+interface IDrawable {
   draw (position: Vector2);
 }
 
-export default Drawable;
+export default IDrawable;

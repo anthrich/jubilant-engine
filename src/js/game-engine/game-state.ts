@@ -1,11 +1,17 @@
 import GameObject from "./game-object";
+import IDrawableFactory from "./drawable-factory";
 abstract class GameState {
 
   gameObjects: Array<GameObject>;
-  onDrawStart: Function;
+
+  protected drawableFactory : IDrawableFactory;
 
   constructor() {
     this.gameObjects = [];
+  }
+
+  setDrawableFactory(drawableFactory: IDrawableFactory) {
+    this.drawableFactory = drawableFactory;
   }
 
   update(delta: number) {
@@ -20,9 +26,8 @@ abstract class GameState {
     });
   }
 
-  onMouseDown(x: number, y: number) {
-
-  }
+  abstract onGameStateReady();
+  abstract onMouseDown(x: number, y: number);
 }
 
 export default GameState;
