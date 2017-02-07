@@ -1,5 +1,5 @@
-import CircleRenderer from "./game-engine/circle-renderer";
-import Vector2 from "./game-engine/vector2";
+import CircleRenderer from "../circle-renderer";
+import Vector2 from "../vector2";
 
 class CanvasCircleRenderer implements CircleRenderer {
 

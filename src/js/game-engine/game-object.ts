@@ -1,5 +1,6 @@
 import Vector2 from './vector2';
 import Component from './component';
+import Drawable from "./drawable";
 
 abstract class GameObject {
 
@@ -7,17 +8,23 @@ abstract class GameObject {
   drawPosition: Vector2;
   speed: number;
   components: Array<Component>;
+  drawables: Array<Drawable>;
 
   constructor() {
     this.position = new Vector2(0, 0);
     this.drawPosition = new Vector2(this.position.x, this.position.y);
     this.speed = 100;
     this.components = [];
+    this.drawables = [];
   }
 
   addComponent(component) {
       component.registerGameObject(this);
       this.components.push(component);
+  }
+
+  addDrawable(drawable: Drawable) {
+    this.drawables.push(drawable);
   }
 
   update(delta) {
@@ -26,7 +33,13 @@ abstract class GameObject {
     });
   }
 
-  abstract draw();
+  draw() {
+    this.drawPosition.x = this.position.x;
+    this.drawPosition.y = this.position.y;
+    this.drawables.forEach((drawable) => {
+      drawable.draw(this.drawPosition);
+    });
+  };
 }
 
 export default GameObject;

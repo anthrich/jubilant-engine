@@ -1,9 +1,8 @@
-import Vector2 from "./vector2";
+import IDrawable from "./drawable";
 
-interface CircleRenderer {
+interface ICircleRenderer extends IDrawable{
     setRadius (radius: number);
     setColor (color: string);
-    draw (position: Vector2);
 }
 
-export default CircleRenderer;
+export default ICircleRenderer;
