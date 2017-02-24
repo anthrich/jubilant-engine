@@ -23,7 +23,7 @@ class ExampleGameState extends GameState {
     this.gameObjects.push(this.player);
     this.client = new Colyseus.Client('ws://localhost:3553');
 
-    this.room = this.client.join("chat_room");
+    this.room = this.client.join("game_room");
     let self = this;
     this.room.onJoin.add(function() {
       console.log(self.client.id, "joined", self.room.name);
