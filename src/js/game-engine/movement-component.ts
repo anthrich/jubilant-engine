@@ -11,24 +11,25 @@ export default class MovementComponent extends Component {
     this.targetPosition = new Vector2(0,0);
   }
 
-  registerGameObject(gameObject: GameObject) {
-    super.registerGameObject(gameObject);
-    this.targetPosition.x = gameObject.position.x;
-    this.targetPosition.y = gameObject.position.y;
+  registerGameObject(gameObjectGetter: () => GameObject) {
+    super.registerGameObject(gameObjectGetter);
+    this.targetPosition.x = gameObjectGetter().position.x;
+    this.targetPosition.y = gameObjectGetter().position.y;
   }
 
   update(delta: number) {
-    let distance = Vector2.distance(this.gameObject.position, this.targetPosition);
-    let movementThisUpdate = this.gameObject.speed / 1000 * delta;
+    let gameObject = this.gameObjectGetter();
+    let distance = Vector2.distance(gameObject.position, this.targetPosition);
+    let movementThisUpdate = gameObject.speed / 1000 * delta;
 
     if(distance < movementThisUpdate) {
-      this.gameObject.position.x = this.targetPosition.x;
-      this.gameObject.position.y = this.targetPosition.y;
+      gameObject.position.x = this.targetPosition.x;
+      gameObject.position.y = this.targetPosition.y;
       return;
     }
 
-    let subtract = Vector2.subtract(this.targetPosition, this.gameObject.position);
+    let subtract = Vector2.subtract(this.targetPosition, gameObject.position);
     let direction = Vector2.normalise(subtract);
-    this.gameObject.position = Vector2.sum(this.gameObject.position, Vector2.scale(movementThisUpdate, direction));
+    gameObject.position = Vector2.sum(gameObject.position, Vector2.scale(movementThisUpdate, direction));
   }
 }

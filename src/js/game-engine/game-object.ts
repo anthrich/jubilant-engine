@@ -18,8 +18,9 @@ abstract class GameObject {
     this.drawables = [];
   }
 
-  addComponent(component) {
-      component.registerGameObject(this);
+  addComponent(component : Component) {
+      var self = this;
+      component.registerGameObject(() => {return self;});
       this.components.push(component);
   }
 

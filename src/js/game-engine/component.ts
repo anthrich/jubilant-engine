@@ -1,11 +1,11 @@
 import GameObject from "./game-object";
 
 abstract class Component {
+  
+  gameObjectGetter: () => GameObject;
 
-  gameObject: GameObject;
-
-  registerGameObject(gameObject: GameObject) {
-    this.gameObject = gameObject;
+  registerGameObject(gameObjectGetter: () => GameObject) {
+    this.gameObjectGetter = gameObjectGetter;
   }
 
   abstract update(delta: number);
