@@ -19,20 +19,21 @@ class ExampleGameState extends GameState {
   }
 
   onGameStateReady() {
+    let self = this;
     this.player = new Circle(20, 'blue', this.drawableFactory.getCircleRenderer());
     this.gameObjects.push(this.player);
     this.client = new Colyseus.Client('ws://localhost:3553');
-
     this.room = this.client.join("game_room");
-    let self = this;
     this.room.onJoin.add(function() {
       console.log(self.client.id, "joined", self.room.name);
     });
 
     this.room.onUpdate.add(function(state) {
       let newGameObject = state.gameObjects.find(go => go.clientId == self.client.id);
-      self.player.position.x = newGameObject.x;
-      self.player.position.y = newGameObject.y;
+      if(newGameObject) {
+        self.player.position.x = newGameObject.position.x;
+        self.player.position.y = newGameObject.position.y;
+      }
     })
   }
 

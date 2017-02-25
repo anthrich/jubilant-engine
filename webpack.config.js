@@ -35,7 +35,8 @@ module.exports = {
     output: {
         path: require('path').resolve('build'),
         publicPath: '/',
-        filename: 'bundle.js'
+        filename: 'bundle.js',
+        sourceMapFilename: 'bundle.map'
     },
     resolve: {
       // Add '.ts' and '.tsx' as a resolvable extension.
