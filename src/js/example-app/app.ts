@@ -3,9 +3,8 @@ import MovementComponent from '../game-engine/movement-component';
 import GameState from '../game-engine/game-state';
 import Circle from './circle';
 import CanvasGameStateIntegration from "../game-engine/canvas-integration/canvas-game-state-integration";
-import * as Colyseus from 'colyseus.js';
-import {Client} from "colyseus.js";
-import {Room} from "colyseus.js";
+import { Client, Room } from 'colyseus.js';
+import GameObject from "../game-engine/game-object";
 
 class ExampleGameState extends GameState {
 
@@ -20,21 +19,27 @@ class ExampleGameState extends GameState {
 
   onGameStateReady() {
     let self = this;
-    this.player = new Circle(20, 'blue', this.drawableFactory.getCircleRenderer());
-    this.gameObjects.push(this.player);
-    this.client = new Colyseus.Client('ws://localhost:3553');
+    this.client = new Client('ws://localhost:3553');
     this.room = this.client.join("game_room");
-    this.room.onJoin.add(function() {
-      console.log(self.client.id, "joined", self.room.name);
-    });
+    
+    let addNewGameObject = (newObject) => {
+      let newGo = new Circle(newObject.id, 20, 'red', self.drawableFactory.getCircleRenderer());
+      self.gameObjects.push(newGo);
+      if(newObject.id == self.client.id) self.player = newGo;
+      return newGo;
+    }
 
     this.room.onUpdate.add(function(state) {
-      let newGameObject = state.gameObjects.find(go => go.clientId == self.client.id);
-      if(newGameObject) {
-        self.player.position.x = newGameObject.position.x;
-        self.player.position.y = newGameObject.position.y;
-      }
-    })
+      state.gameObjects.forEach(newGo => {
+        let currentGo = self.gameObjects.find(eGo => eGo.id === newGo.id);
+        if(!currentGo) currentGo = addNewGameObject(newGo);
+        currentGo.setPosition(newGo.position);
+      })
+    });
+  
+    this.room.onData.add(function(data) {
+      console.log(data);
+    });
   }
 
   onMouseDown(x: number, y: number) {

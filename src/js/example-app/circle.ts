@@ -7,8 +7,8 @@ export default class Circle extends GameObject {
   radius: number;
   color: string;
 
-  constructor(radius: number, color: string, circleRenderer: CircleRenderer) {
-    super();
+  constructor(id: string, radius: number, color: string, circleRenderer: CircleRenderer) {
+    super(id);
     this.radius = radius;
     this.color = color;
     circleRenderer.setColor(this.color);

@@ -9,13 +9,20 @@ abstract class GameObject {
   speed: number;
   components: Array<Component>;
   drawables: Array<Drawable>;
+  id: string;
 
-  constructor() {
+  constructor(id: string) {
+    this.id = id;
     this.position = new Vector2(0, 0);
     this.drawPosition = new Vector2(this.position.x, this.position.y);
     this.speed = 100;
     this.components = [];
     this.drawables = [];
+  }
+  
+  setPosition(pos : Vector2) {
+    this.position.x = pos.x;
+    this.position.y = pos.y;
   }
 
   addComponent(component : Component) {

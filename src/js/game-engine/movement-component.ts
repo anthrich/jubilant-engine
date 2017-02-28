@@ -10,6 +10,11 @@ export default class MovementComponent extends Component {
     super();
     this.targetPosition = new Vector2(0,0);
   }
+  
+  setTargetPosition(position : Vector2) {
+    this.targetPosition.x = position.x;
+    this.targetPosition.y = position.y;
+  }
 
   registerGameObject(gameObjectGetter: () => GameObject) {
     super.registerGameObject(gameObjectGetter);
