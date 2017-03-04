@@ -8,7 +8,7 @@ import {Player} from "./player";
 
 class ExampleGameState extends GameState {
 
-  player: Circle;
+  player: Player;
   playerMovementComponent: MovementComponent;
   client : Client;
   room : Room<Object>;
@@ -23,14 +23,10 @@ class ExampleGameState extends GameState {
     this.client = new Client('ws://localhost:3553');
     this.room = this.client.join("game_room");
     this.players = Array<Player>();
-    
-    let addNewGameObject = (newObject) => {
-      let newGo = new Circle(newObject.id, 20, 'red', self.drawableFactory.getCircleRenderer());
-      self.gameObjects.push(newGo);
-      if(newObject.id == self.client.id) self.player = newGo;
-      return newGo;
-    }
 
+    /**
+     * Called on update
+     */
     this.room.onUpdate.add(function(state) {
       state.gameObjects.forEach(newGo => {
         let currentGo = self.gameObjects.find(eGo => eGo.id === newGo.id);
@@ -39,24 +35,58 @@ class ExampleGameState extends GameState {
       })
 
       state.players.forEach(newPl => {
-        let currentGo = self.players.find(ePl => ePl.id === newPl.id);
-        if(!currentGo) self.players.push(newPl);
+        let currentPlayer = self.players.find(ePl => ePl.id === newPl.id);
+
+        if(!currentPlayer) addNewPlayer(newPl);
       })
     });
-  
+
+    /**
+     * Called when ???
+     */
     this.room.onData.add(function(data) {
       console.log(data);
     });
 
-    this.room.onLeave.add(function(a) {
-      console.log(a)
-    });
+    /**
+     * Called when client leaves.
+     */
+    this.room.onLeave.add(function(a) {});
 
-    this.room.state.listen("players/:id", "remove", (playerId: number) => {
-      let playerLeft = self.players.find(ePl => ePl.id == playerId);
+    /**
+     * Adds new game object.
+     *
+     * @param newObject
+     * @returns {Circle}
+     */
+    let addNewGameObject = (newObject) => {
+      let newGo = new Circle(newObject.id, 20, 'red', self.drawableFactory.getCircleRenderer());
+      self.gameObjects.push(newGo);
 
-      console.log(playerLeft);
-    });
+      return newGo;
+    };
+
+    /**
+     * Adds new player.
+     * 
+     * @param serverPlayer
+     * @returns {Player}
+     */
+    let addNewPlayer = (serverPlayer) => {
+      let localPlayer = new Player(serverPlayer.id, serverPlayer.color, serverPlayer.clientId);
+      self.players.push(localPlayer);
+
+      if(localPlayer.clientId == self.client.id) self.player = localPlayer;
+
+      serverPlayer.gameObjects.forEach(sGo => {
+        let localGo = self.gameObjects.find(eGo => eGo.id === sGo.id);
+        if(localGo) localPlayer.addObject(localGo);
+      });
+
+      localPlayer.stylizeObjects();
+
+      return localPlayer;
+    };
   }
 
   onMouseDown(x: number, y: number) {

@@ -1,8 +1,10 @@
 "use strict";
 import GameObject from "../game-engine/game-object";
+import Circle from "./circle";
 
 export class Player {
     id : number;
+    color : string;
     clientId : string;
     name : string;
     gameObjects : GameObject[];
@@ -11,8 +13,9 @@ export class Player {
      * @param clientId
      * @param name
      */
-    constructor(id: number, clientId: string) {
+    constructor(id: number, color:string, clientId: string) {
         this.id = id;
+        this.color = color;
         this.clientId = clientId;
         this.gameObjects = Array<GameObject>();
     }
@@ -37,5 +40,15 @@ export class Player {
         for(let i in objs) {
             this.addObject(objs[i]);
         }
+    }
+
+    stylizeObjects()
+    {
+        this.gameObjects
+            .filter(go => go instanceof Circle)
+            .forEach(go => {
+                let cGo = go as Circle;
+                cGo.setOutlineColor(this.color);
+            });
     }
 }

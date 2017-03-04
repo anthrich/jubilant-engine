@@ -11,8 +11,13 @@ export default class Circle extends GameObject {
     super(id);
     this.radius = radius;
     this.color = color;
-    circleRenderer.setColor(this.color);
-    circleRenderer.setRadius(this.radius);
-    this.addDrawable(circleRenderer);
+    this._circleRenderer = circleRenderer;
+    this._circleRenderer.setColor(this.color);
+    this._circleRenderer.setRadius(this.radius);
+    this.addDrawable(this._circleRenderer);
+  }
+
+  setOutlineColor(color : string) {
+    this._circleRenderer.setOutlineColour(color);
   }
 }
