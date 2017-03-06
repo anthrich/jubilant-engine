@@ -8,6 +8,7 @@ export class Player {
     clientId : string;
     name : string;
     gameObjects : GameObject[];
+    selectedGameObjects : GameObject[];
 
     /**
      * @param clientId
@@ -18,6 +19,7 @@ export class Player {
         this.color = color;
         this.clientId = clientId;
         this.gameObjects = Array<GameObject>();
+        this.selectedGameObjects = Array<GameObject>();
     }
 
     /**
@@ -27,7 +29,11 @@ export class Player {
      */
     addObject(obj : GameObject)
     {
-        this.gameObjects.push(obj)
+        this.gameObjects.push(obj);
+
+        if(this.gameObjects.length == 1) {
+            this.selectedGameObjects.push(obj);
+        }
     }
 
     /**

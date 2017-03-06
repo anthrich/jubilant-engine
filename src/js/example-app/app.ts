@@ -24,38 +24,27 @@ class ExampleGameState extends GameState {
     this.room = this.client.join("game_room");
     this.players = Array<Player>();
 
-    /**
-     * Called on update
-     */
     this.room.onUpdate.add(function(state) {
       state.gameObjects.forEach(newGo => {
+        console.log(newGo);
         let currentGo = self.gameObjects.find(eGo => eGo.id === newGo.id);
         if(!currentGo) currentGo = addNewGameObject(newGo);
         currentGo.setPosition(newGo.position);
-      })
+      });
 
       state.players.forEach(newPl => {
         let currentPlayer = self.players.find(ePl => ePl.id === newPl.id);
-
         if(!currentPlayer) addNewPlayer(newPl);
-      })
+      });
     });
 
-    /**
-     * Called when ???
-     */
     this.room.onData.add(function(data) {
       console.log(data);
     });
 
-    /**
-     * Called when client leaves.
-     */
     this.room.onLeave.add(function(a) {});
 
     /**
-     * Adds new game object.
-     *
      * @param newObject
      * @returns {Circle}
      */
@@ -67,8 +56,6 @@ class ExampleGameState extends GameState {
     };
 
     /**
-     * Adds new player.
-     * 
      * @param serverPlayer
      * @returns {Player}
      */
@@ -90,7 +77,17 @@ class ExampleGameState extends GameState {
   }
 
   onMouseDown(x: number, y: number) {
-    this.room.send({ "x": x, "y": y });
+    let selectedObjects = this.players
+        .find(pl => pl.clientId == this.client.id)
+        .selectedGameObjects;
+
+    if(!selectedObjects) return;
+
+    this.room.send({
+      "selected" : selectedObjects,
+      "x": x,
+      "y": y
+    });
   }
 }
 
