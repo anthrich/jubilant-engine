@@ -25,8 +25,8 @@ class ExampleGameState extends GameState {
     this.players = Array<Player>();
 
     this.room.onUpdate.add(function(state) {
+      console.log(state);
       state.gameObjects.forEach(newGo => {
-        console.log(newGo);
         let currentGo = self.gameObjects.find(eGo => eGo.id === newGo.id);
         if(!currentGo) currentGo = addNewGameObject(newGo);
         currentGo.setPosition(newGo.position);
@@ -49,7 +49,7 @@ class ExampleGameState extends GameState {
      * @returns {Circle}
      */
     let addNewGameObject = (newObject) => {
-      let newGo = new Circle(newObject.id, 20, 'red', self.drawableFactory.getCircleRenderer());
+      let newGo = new Circle(newObject.id, 20, '#3b87b1', self.drawableFactory.getCircleRenderer());
       self.gameObjects.push(newGo);
 
       return newGo;

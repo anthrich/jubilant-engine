@@ -23,9 +23,7 @@ export class Player {
     }
 
     /**
-     * Adds a game object to the player
-     *
-     * @param obj
+     * @param obj GameObject
      */
     addObject(obj : GameObject)
     {
@@ -37,9 +35,7 @@ export class Player {
     }
 
     /**
-     * Adds array of game objects to player.
-     *
-     * @param objs
+     * @param objs GameObject[]
      */
     addObjects(objs : GameObject[])
     {
@@ -50,8 +46,7 @@ export class Player {
 
     stylizeObjects()
     {
-        this.gameObjects
-            .filter(go => go instanceof Circle)
+        this.gameObjects.filter(go => go instanceof Circle)
             .forEach(go => {
                 let cGo = go as Circle;
                 cGo.setOutlineColor(this.color);
