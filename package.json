@@ -20,14 +20,22 @@
     "csswring": "^4.2.2",
     "doiuse": "^2.3.0",
     "extract-text-webpack-plugin": "^1.0.1",
+    "node-sass": "^4.5.0",
     "postcss-cssnext": "^2.5.2",
     "postcss-loader": "^0.8.2",
     "postcss-nested": "^1.0.0",
+    "sass-loader": "^6.0.3",
     "style-loader": "^0.13.1",
     "ts-loader": "^2.0.0",
     "typescript": "^2.1.5",
     "webpack": "^1.8.11",
     "webpack-dev-server": "^1.8.2",
     "wordwrap": "1.0.0"
+  },
+  "dependencies": {
+    "@types/react": "^15.0.16",
+    "@types/react-dom": "^0.14.23",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2"
   }
 }

@@ -1,6 +1,6 @@
 "use strict";
-import GameObject from "../game-engine/game-object";
-import Circle from "./circle";
+import GameObject from "../../game-engine/game-object";
+import Circle from "../circle";
 
 export class Player {
     id : number;

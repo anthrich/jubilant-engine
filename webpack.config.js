@@ -8,6 +8,7 @@ var doiuse = require('doiuse');
 var wordwrap = require('wordwrap');
 
 var colors = require('colors');
+var extractSass = require('sass-loader');
 
 var postCSSConfig = function(webpack) {
     return [
@@ -30,7 +31,7 @@ var postCSSConfig = function(webpack) {
 
 module.exports = {
     entry: {
-        app: ['./src/js/example-app/app.ts']
+        app: ['./src/js/example-app/app.tsx']
     },
     output: {
         path: require('path').resolve('build'),
@@ -39,7 +40,6 @@ module.exports = {
         sourceMapFilename: 'bundle.map'
     },
     resolve: {
-      // Add '.ts' and '.tsx' as a resolvable extension.
       extensions: ["", ".webpack.js", ".web.js", ".ts", ".tsx", ".js"]
     },
     module: {
@@ -49,11 +49,22 @@ module.exports = {
                 loader: ExtractTextPlugin.extract('css!postcss'),
             },
             {
+                test: /\.scss$/,
+                loaders: [
+                    "style-loader",
+                    "css-loader",
+                    "sass-loader"
+                ]
+            },
+            {
                 test: /\.js$/,
                 exclude: /node_modules/,
                 loader: 'babel-loader?presets[]=es2015'
             },
-            { test: /\.tsx?$/, loader: "ts-loader" }
+            {
+                test: /\.tsx?$/,
+                loader: "ts-loader"
+            }
         ]
     },
     postcss: postCSSConfig,
