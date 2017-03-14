@@ -1,10 +1,8 @@
 import * as React from 'react';
-import {PlayerSelectionsInterface} from "./PlayerSelectionsInterface";
-import NullHeroPortrait from "../data/NullHeroPortrait";
 import {AvailableSelectionsInterface} from "./AvailableSelectionsInterface";
+import {SelectionLobbyStatus} from "./SelectionLobbyStatus";
+import CountdownClock from "./../CountdownClock";
 
-//todo: pass class down that states what picks are available etc.
-//todo: add className="inactive" when inactive.
 export default class AvailableSelections extends React.Component<AvailableSelectionsInterface, any> {
     constructor(props,context) {
         super(props,context);
@@ -12,10 +10,11 @@ export default class AvailableSelections extends React.Component<AvailableSelect
 
     render () {
         let heroList = this.heroListJSX();
+        let title = this.titleJSX();
 
         return (
             <div>
-                <h2 className="shimmer">{"It's your turn to pick"}</h2>
+                {title}
                 <div id="heroes">
                     <ul>
                         {heroList}
@@ -26,11 +25,32 @@ export default class AvailableSelections extends React.Component<AvailableSelect
     }
 
     heroListJSX() {
+        let className = '';
+
+        if(this.props.status != SelectionLobbyStatus.PICKING) {
+            className = 'inactive';
+        }
+
         return this.props.heroes.map((a, index) => (
-            <li key={index}>
+            <li key={index} className={className}>
                 <img src={a.url}/>
                 <span>{a.name}</span>
             </li>
         ));
+    }
+
+    titleJSX() {
+        let text;
+        let className;
+
+        if(this.props.status != SelectionLobbyStatus.PICKING) {
+            text = "Your opponent is picking";
+            className="";
+        } else {
+            text = "It's your turn to pick";
+            className="shimmer";
+        }
+
+        return <h2 className={className}>{text}</h2>;
     }
 }

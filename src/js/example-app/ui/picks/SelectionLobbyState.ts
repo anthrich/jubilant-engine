@@ -1,24 +1,21 @@
-import {PlayerSelections} from "../../player/playerSelections";
+import {PlayerSelectionsModel} from "../data/PlayerSelectionsModel";
 import HeroPortrait from "../data/HeroPortrait";
 import Heroes from './../data/heroes';
+import {SelectionLobbyStatus} from "./SelectionLobbyStatus";
 
 export  default class SelectionLobbyState {
-    selections : Array<PlayerSelections>;
+    selections : Array<PlayerSelectionsModel>;
     available : Array<HeroPortrait>;
+    clientId : string;
+    overlayMessage : string;
+    showOverlay : boolean;
+    status : number;
 
-    private clientId : string;
-
-    constructor(clientId) {
-        this.clientId = clientId;
-
+    constructor() {
         this.available = Heroes;
-        this.selections = Array<PlayerSelections>();
-
-        this.selections.push(new PlayerSelections(this.clientId));
-        this.selections.push(new PlayerSelections('a_n_other'));
-    }
-
-    getClientId() {
-        return this.clientId
+        this.selections = Array<PlayerSelectionsModel>();
+        this.overlayMessage = 'Connecting to server';
+        this.showOverlay = true;
+        this.status = SelectionLobbyStatus.INIT;
     }
 }

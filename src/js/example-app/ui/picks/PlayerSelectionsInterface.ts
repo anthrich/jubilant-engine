@@ -1,6 +1,6 @@
-import {PlayerSelections} from "../../player/playerSelections";
+import {PlayerSelectionsModel} from "../data/PlayerSelectionsModel";
 
 export interface PlayerSelectionsInterface {
     current_user : boolean;
-    selections : PlayerSelections
+    selections : PlayerSelectionsModel
 }

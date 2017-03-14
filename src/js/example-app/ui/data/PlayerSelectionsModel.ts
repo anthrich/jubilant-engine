@@ -1,14 +1,16 @@
-import HeroPortrait from "../ui/data/HeroPortrait";
+import HeroPortrait from "./HeroPortrait";
 
-export class PlayerSelections {
+export class PlayerSelectionsModel {
     protected clientId:string;
     protected selections : Array<HeroPortrait>;
     protected maxSelections: number;
+
 
     constructor(clientId) {
         this.clientId = clientId;
         this.selections = [];
         this.maxSelections = 5;
+
     }
 
     addSelection(selection : HeroPortrait) {

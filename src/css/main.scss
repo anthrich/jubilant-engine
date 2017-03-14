@@ -1,9 +1,13 @@
 $header-font:'Audiowide', cursive;
 $font:'Graduate', cursive;
 
+$panel-bg-dark: RGBA(0,0,0, 0.90);
 $panel-bg: RGBA(0,0,0, 0.4);
 $panel-secondary: RGBA(0,0,0, 0.2);
 $panel-text: #c3c3c3;
+
+$loader-color: #fff;
+$loader-size: 45px;
 
 body, html, #selection-lobby, #player1, #player2, #main {
   height: 100%;
@@ -115,6 +119,57 @@ body {
         }
       }
     }
+  }
+
+  .status-overlay {
+    top:        0;
+    left:       0;
+    position:   fixed;
+    height: 75%;
+    width: 100%;
+    background: $panel-bg-dark;
+    z-index: 999;
+    color: $panel-text;
+    text-align: center;
+    font-size:40px;
+    padding-top: 25%;
+
+    .loader {
+      color: #fff;
+
+      font-family: Consolas, Menlo, Monaco, monospace;
+      font-weight: bold;
+      font-size: $loader-size;
+
+      opacity: 0.8;
+
+      span {
+        display: inline-block;
+        animation: pulse 0.4s alternate infinite ease-in-out;
+
+        &:nth-child(odd) {
+          animation-delay: 0.4s;
+        }
+      }
+    }
+
+    @keyframes pulse {
+      to {
+        transform: scale(0.8);
+        opacity: 0.5;
+      }
+    }
+
+    @keyframes minor_pulse {
+      to {
+        transform: scale(0.95);
+        opacity: 0.8;
+      }
+    }
+  }
+
+  .shimmer {
+    animation: minor_pulse 1s alternate infinite ease-in-out;
   }
 }
 #canvas {
